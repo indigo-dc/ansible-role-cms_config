@@ -1,5 +1,5 @@
 {
-        "id": "/cvmfs_keepalive",
+        "id": "/cvmfskeepalive",
         "cmd": "while true; do\n    if [ ! -f /cvmfs/cms.cern.ch/cmsset_default.sh ]; then\n        echo \"Re mount CVMFS\"\n        umount /cvmfs/cms.cern.ch ; mount -t cvmfs cms.cern.ch /cvmfs/cms.cern.ch/\n    fi;\n    sleep 10;\n    if [ ! -f /cvmfs/cms.cern.ch/cmsset_default.sh ]; then\n        echo \"Failed mounting CVMFS...trying again\"\n    fi;\n    sleep 5;\ndone;\n",
         "cpus": 0.1,
         "mem": 32,
