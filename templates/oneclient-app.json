@@ -1,0 +1,14 @@
+{
+  "id": "/oneclient",
+  "cmd": "while true; do\n  oneclient --insecure -H {{cms_config_onedatacache:}} -t {{cms_config_onedatatoken}} /mnt/onedata; sleep(600); done;",
+  "cpus": 0.1,
+  "mem": 32,
+  "disk": 0,
+  "instances": 1,
+  "constraints": [
+    [
+      "hostname",
+      "UNIQUE"
+    ]
+  ]
+}
