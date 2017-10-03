@@ -61,7 +61,11 @@
 - name: start oneclient and mount on host /mnt/onedata 
   run_once: true
   uri: 
+<<<<<<< HEAD
      url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/apps/oneclient"
+=======
+     url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/apps/cvmfscheck"
+>>>>>>> automatic setup of oneclient on each slave
      user: "{{marathon_username}}"
      password: "{{marathon_password}}"
      validate_certs: "no"
