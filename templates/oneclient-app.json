@@ -4,7 +4,7 @@
   "cpus": 0.1,
   "mem": 32,
   "disk": 0,
-  "instances": 3,
+  "instances": 1,
   "constraints": [
     [
       "hostname",
@@ -17,27 +17,5 @@
   "env": {
     "ONECLIENT_ACCESS_TOKEN": "{{ oneclient_token}}",
     "ONECLIENT_PROVIDER_HOST": "{{ oneprovider_name }}"
-  },
-  "portDefinitions": [
-    {
-      "port": 10002,
-      "protocol": "tcp",
-      "labels": {}
-    }
-  ]
-}
-
-{
-  "id": "/oneclient",
-  "cmd": ""
-  "cpus": 0.1,
-  "mem": 32,
-  "disk": 0,
-  "instances": 1,
-  "constraints": [
-    [
-      "hostname",
-      "UNIQUE"
-    ]
-  ]
+  }
 }
