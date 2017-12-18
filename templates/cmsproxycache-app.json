@@ -1,9 +1,9 @@
 {
-    "id": "certcache",
+    "id": "cmsproxycache",
     "container": {
       "type": "DOCKER",
       "docker": {
-        "image": "{{ cms_config_proxycache_image}}",
+        "image": "{{ cms_config_proxycache_image }}",
         "network": "BRIDGE",
         "portMappings": [{
           "containerPort": {{ cms_config_proxycache_port }},
@@ -13,14 +13,28 @@
       }
     },
    "env": {
-        "IAMTOKEN": "{{ cms_config_iamtoken }}",
+        "IAM_TOKEN": "{{ cms_config_iam_token }}",
         "IAM_CLIENT_ID": "{{ cms_config_iam_client_id }}",
-        "IAM_CLIENT_SECRET": "{{ cms_config_iam_client_secret }}"
+        "IAM_CLIENT_SECRET": "{{ cms_config_iam_client_secret }}",
+        "MARATHON_USER": "{{ marathon_username }}",
+        "MARATHON_PASSWD": "{{ marathon_password }}",
+        "ZOOKEEPER_HOST_LIST": "{{ zookeeper_host_list }}",
+        "CACHE_MANAGER": "{{ proxy_cache_manager }}"
     },
    "labels":{
       "HAPROXY_GROUP":"external"
     },
-    "cmd": "/root/start_apache.sh",
+    "healthChecks": [
+      {
+        "path": "/health",
+        "portIndex": 0,
+        "protocol": "MESOS_HTTP",
+        "gracePeriodSeconds": 300,
+        "intervalSeconds": 60,
+        "timeoutSeconds": 20,
+        "maxConsecutiveFailures": 3
+      }
+    ],
     "instances": 1,
     "cpus": 1.00,
     "mem": 2048
