@@ -143,7 +143,7 @@
      validate_certs: "no"
      method: PUT
      HEADER_Content-Type: "application/json"
-     body: "{{ lookup('template', 'templates/xrootdproxyredir-app.json') }}"
+     body: "{{ lookup('template', 'templates/xrootdproxy-app.json') }}"
      body_format: json
   register: result
   until: result.status == 200
