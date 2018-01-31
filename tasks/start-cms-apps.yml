@@ -137,7 +137,7 @@
 - name: start xrootd proxy cache
   run_once: true
   uri: 
-     url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/apps/xrootdproxyredir"
+     url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/apps/xrootdproxy"
      user: "{{marathon_username}}"
      password: "{{marathon_password}}"
      validate_certs: "no"
