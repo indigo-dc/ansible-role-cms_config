@@ -1,6 +1,6 @@
 {
     "id": "/xrootdproxy",
-    "cmd": "/usr/local/bin/entrypoint redirector -cmsd_redirector_port {{cms_cmsd_cache_redir_port}} -xrd_redirector_port {{cms_xrd_cache_redir_port}} -redirector_global {{cms_redir_global}} -redictor_global_port {{cms_redir_global_port}}",
+    "cmd": "/usr/local/bin/entrypoint redirector -cmsd_redirector_port {{cms_cmsd_cache_redir_port}} -xrd_redirector_port {{cms_xrd_cache_redir_port}} -redirector_global {{cms_redir_global}} -redirector_global_port {{cms_redir_global_port}}",
     "cpus": 2,
     "mem": 2048,
     "disk": 0,
