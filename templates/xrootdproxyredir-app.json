@@ -1,6 +1,6 @@
 {
     "id": "/xrootdproxy",
-    "cmd": "/usr/local/bin/entrypoint redirector -cmsd_redirector_port {{cms_cmsd_cache_redir_port}} -xrd_redirector_port {{cms_xrd_cache_redir_port}} -redirector_global {{cms_redir_global}} -redirector_global_port {{cms_redir_global_port}}",
+    "cmd": "/usr/local/bin/entrypoint redirector -cmsd_redirector_port {{cms_cmsd_cache_redir_port}} -xrd_redirector_port {{cms_xrd_cache_redir_port}} -redirector_global {{cms_redir_global}} -redirector_global_port {{cms_redir_global_port}} -redirector_url {{cms_config_proxycache_host}}",
     "cpus": 2,
     "mem": 2048,
     "disk": 0,
@@ -16,23 +16,45 @@
       "volumes": [],
       "docker": {
         "image": "cloudpg/xrootd-proxy",
-        "network": "HOST",
-        "portMappings": [],
+        "network": "BRIDGE",
+        "portMappings": [
+          {
+            "containerPort": 1094,
+            "hostPort": 0,
+            "servicePort": 31094,
+            "protocol": "tcp",
+            "name": "xrd",
+            "labels": {}
+          },
+          {
+            "containerPort": 1213,
+            "hostPort": 0,
+            "servicePort": 31213,
+            "protocol": "tcp",
+            "name": "cmsd",
+            "labels": {}
+          }
+        ],
         "privileged": false,
         "parameters": [],
-        "forcePullImage": false
+        "forcePullImage": true
       }
     },
-    "healthChecks": [
+    "labels": {
+      "HAPROXY_GROUP": "external"
+    },
+    "portDefinitions": [
       {
-        "gracePeriodSeconds": 300,
-        "intervalSeconds": 60,
-        "timeoutSeconds": 20,
-        "maxConsecutiveFailures": 3,
-        "port": 8000,
-        "path": "/",
-        "protocol": "HTTP",
-        "ignoreHttp1xx": false
+        "port": 31094,
+        "protocol": "tcp",
+        "name": "xrd",
+        "labels": {}
+      },
+      {
+        "port": 31213,
+        "protocol": "tcp",
+        "name": "cmsd",
+        "labels": {}
       }
     ]
   }
