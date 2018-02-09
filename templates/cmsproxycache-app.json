@@ -3,7 +3,7 @@
     "container": {
       "type": "DOCKER",
       "docker": {
-        "image": "{{ cms_config_proxycache_image }}",
+        "image": "{{ cms_config_proxycache_image }}:test",
         "network": "BRIDGE",
         "portMappings": [{
           "containerPort": {{ cms_config_proxycache_port }},
