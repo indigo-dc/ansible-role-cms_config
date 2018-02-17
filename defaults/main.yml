@@ -45,3 +45,6 @@ cms_xrd_cache_redir_port: "1094"
 cms_redir_global: "0.0.0.0"
 cms_redir_global_port: "1213"
 
+gist_token: "DUMMY"
+cms_cert_url: "DUMMY"
+cms_key_url: "DUMMY"

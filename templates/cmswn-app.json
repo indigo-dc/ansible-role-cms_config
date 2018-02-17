@@ -8,7 +8,7 @@
                 "type": "DOCKER",
                 "docker": {
                         "image": "{{cms_config_wn_image}}",
-                        "network": "BRIDGE",
+                        "network": "BRIDGE"
                 },
                 "volumes": [{
                         "containerPath": "/opt/exp_sw/cms",
