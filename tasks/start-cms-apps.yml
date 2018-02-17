@@ -134,18 +134,6 @@
   tags:
     - cms_apps
 
-- name: copy usercert.pem
-  get_url:
-    url: {{cms_key_url}}
-    dest: /tmp/usercert.pem
-    headers: 'Authorization: token {{gist_token}}'
-
-- name: copy userkey.pem
-  get_url:
-    url: {{cms_key_url}}
-    dest: /tmp/userkey.pem
-    headers: 'Authorization: token {{gist_token}}'
-
 - name: start xrootd proxy cache
   run_once: true
   uri: 
