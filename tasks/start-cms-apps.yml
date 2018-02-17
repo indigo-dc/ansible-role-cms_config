@@ -135,12 +135,16 @@
     - cms_apps
 
 - name: copy usercert.pem
-  shell: "curl -H 'Authorization: token {{gist_token}}'  {{cms_cert_url}} -O /tmp/usercert.pem"
-  tags: cms_apps
+  get_url:
+    url: "{{cms_key_url}}"
+    dest: /tmp/usercert.pem
+    headers: 'Authorization: token {{gist_token}}'
 
-- name: copy usercert.pem
-  shell: "curl -H 'Authorization: token {{gist_token}}'  {{cms_key_url}} -O /tmp/userkey.pem"
-  tags: cms_apps
+- name: copy userkey.pem
+  get_url:
+    url: "{{cms_key_url}}"
+    dest: /tmp/userkey.pem
+    headers: 'Authorization: token {{gist_token}}'
 
 - name: start xrootd proxy cache
   run_once: true
