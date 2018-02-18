@@ -22,8 +22,16 @@
     ],
     "docker": {
       "image": "cloudpg/xrootd-proxy",
-      "network": "HOST",
-      "portMappings": [],
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 32294,
+          "hostPort": 0,
+          "servicePort": 32294,
+          "protocol": "tcp",
+          "name": "xrd",
+          "labels": {}
+        }],
       "privileged": false,
       "parameters": [],
       "forcePullImage": true
@@ -45,5 +53,15 @@
       },
       "protocol": "COMMAND"
     }
-  ]
+  ],
+  "labels": {
+    "HAPROXY_GROUP": "external"
+  },
+  "portDefinitions": [
+    {
+      "port": 32294,
+      "protocol": "tcp",
+      "name": "xrd",
+      "labels": {}
+    }]
 }
