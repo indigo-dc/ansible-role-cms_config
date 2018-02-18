@@ -18,6 +18,11 @@
         "containerPath": "/data/xrd",
         "hostPath": "/data/xrd",
         "mode": "RW"
+      },
+      {
+        "containerPath": "/tmp",
+        "hostPath": "/tmp",
+        "mode": "RW"
       }
     ],
     "docker": {
