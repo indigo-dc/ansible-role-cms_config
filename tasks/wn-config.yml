@@ -161,8 +161,8 @@
       <pfn-to-lfn protocol="srm" destination-match=".*"  path-match=".*\?SFN=/cms/(.*)" result="/$1"/>
 
       <!-- FALLBACK SU PISA XROOTD -->
-      <lfn-to-pfn protocol="xrootd" path-match="/+store/(.*)" result="root://xrootd-cms.infn.it:1194//store/$1"/>
-      <pfn-to-lfn protocol="xrootd" destination-match=".*" path-match="root://xrootd-cms.infn.it:1194//store/(.*)" result="/store/$1"/>
+      <lfn-to-pfn protocol="xrootd" path-match="/+store/(.*)" result="root://{{cms_xrd_readserver}}//store/$1"/>
+      <pfn-to-lfn protocol="xrootd" destination-match=".*" path-match="root://{{cms_xrd_readserver}}//store/(.*)" result="/store/$1"/>
 
       </storage-mapping>
   tags: cms_config
