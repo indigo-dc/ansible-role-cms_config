@@ -20,6 +20,7 @@
         "MARATHON_PASSWD": "{{ marathon_password }}",
         "ZOOKEEPER_HOST_LIST": "{{ zookeeper_host_list }}",
         "CACHE_MANAGER": "{{ proxy_cache_manager }}",
+        "PROXY_AUDIENCE": "{{ proxy_audience }}",
         "PROXY_TTS": "{{ proxy_tts }}",
         "PROXY_IAM_ENDPOINT": "{{ proxy_iam_endpoint }}",
         "PROXY_CREDENTIAL_ENDPOINT": "{{ proxy_credential_endpoint }}",
