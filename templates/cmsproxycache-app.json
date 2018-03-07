@@ -19,7 +19,14 @@
         "MARATHON_USER": "{{ marathon_username }}",
         "MARATHON_PASSWD": "{{ marathon_password }}",
         "ZOOKEEPER_HOST_LIST": "{{ zookeeper_host_list }}",
-        "CACHE_MANAGER": "{{ proxy_cache_manager }}"
+        "CACHE_MANAGER": "{{ proxy_cache_manager }}",
+        "PROXY_AUDIENCE": "{{ proxy_audience }}",
+        "PROXY_TTS": "{{ proxy_tts }}",
+        "PROXY_IAM_ENDPOINT": "{{ proxy_iam_endpoint }}",
+        "PROXY_CREDENTIAL_ENDPOINT": "{{ proxy_credential_endpoint }}",
+        "PROXY_LOCAL_CACHE_EXPIRATION_TIME": "{{ proxy_local_cache_expiration_time }}",
+        "PROXY_LOCK_FILE_AGE": "{{ proxy_lock_file_age }}",
+        "PROXY_CACHE_DIR": "{{ proxy_cache_dir }}"
     },
    "labels":{
       "HAPROXY_GROUP":"external"

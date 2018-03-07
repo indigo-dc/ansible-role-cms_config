@@ -28,6 +28,14 @@ cms_config_proxycache_serviceport: 8080
 
 cms_config_squid_image: "spiga/frontiersquidv1"
 cms_config_wn_image: "ciangom/cmswnitb"
+
 cms_config_proxycache_image: "cloudpg/ttscache"
 proxy_cache_manager: "ZOOKEEPER"
+proxy_audience: "https://watts-dev.data.kit.edu"
+proxy_tts: "https://watts-dev.data.kit.edu"
+proxy_iam_endpoint: "https://iam-test.indigo-datacloud.eu/"
+proxy_credential_endpoint: "https://watts-dev.data.kit.edu/api/v2/iam/credential"
+proxy_local_cache_expiration_time: 864000
+proxy_lock_file_age: 20
+proxy_cache_dir: "/tmp"
 
