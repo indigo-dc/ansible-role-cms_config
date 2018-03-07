@@ -20,7 +20,6 @@
         "command": {
           "value": "curl -I http://$HOST:$PORT | grep -q squid"
         },
-        "portIndex": 0,
         "protocol": "COMMAND",
         "gracePeriodSeconds": 300,
         "intervalSeconds": 60,

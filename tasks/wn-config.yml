@@ -63,8 +63,8 @@
   file: path=/cvmfs/cms.cern.ch state=directory owner=cvmfs group=cvmfs recurse=yes
   tags: cms_config
 
-- name: mount CVMFS
-  command: mount -t cvmfs cms.cern.ch /cvmfs/cms.cern.ch/
+- name: mount CVMFS if not mounted
+  shell: mountpoint -q /cvmfs/cms.cern.ch/ || mount -t cvmfs cms.cern.ch /cvmfs/cms.cern.ch/
   register: result
   until: result | success
   retries: 10
