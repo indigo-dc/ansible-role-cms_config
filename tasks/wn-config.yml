@@ -24,11 +24,11 @@
 - name: create necessary dirs
   file:  path={{item}} state=directory mode=0755
   with_items:
-    - /opt/exp_sw/cms
+    - /etc/cvmfs/SITECONF
   tags: cms_config
 
 - name: set CMS_LOCAL_SITE variable
-  lineinfile: dest=/etc/cvmfs/config.d/cms.cern.ch.conf create=yes line="export CMS_LOCAL_SITE=/opt/exp_sw/cms"  
+  lineinfile: dest=/etc/cvmfs/config.d/cms.cern.ch.conf create=yes line="export CMS_LOCAL_SITE=/etc/cvmfs/SITECONF"  
   tags: cms_config
 
 - name: Enable user_allow_other in fuse.conf
@@ -59,12 +59,36 @@
   service: name=autofs state=stopped
   tags: cms_config
 
-- name: Creates CVMFS mountpoint
+- name: Creates CVMFS mountpoint for cms
   file: path=/cvmfs/cms.cern.ch state=directory owner=cvmfs group=cvmfs recurse=yes
   tags: cms_config
 
-- name: mount CVMFS
+- name: Creates CVMFS mountpoint for singularity
+  file: path=/cvmfs/singularity.opensciencegrid.org state=directory owner=cvmfs group=cvmfs recurse=yes
+  tags: cms_config
+
+- name: Creates CVMFS mountpoint for singularity oasis
+  file: path=/cvmfs/oasis.opensciencegrid.org state=directory owner=cvmfs group=cvmfs recurse=yes
+  tags: cms_config
+
+- name: mount CVMFS cms
   command: mount -t cvmfs cms.cern.ch /cvmfs/cms.cern.ch/
+  register: result
+  until: result | success
+  retries: 10
+  delay: 10
+  tags: cms_config
+
+- name: mount CVMFS singularity 
+  command: mount -t cvmfs singularity.opensciencegrid.org /cvmfs/singularity.opensciencegrid.org
+  register: result
+  until: result | success
+  retries: 10
+  delay: 10
+  tags: cms_config
+
+- name: mount CVMFS singularity oasis 
+  command: mount -t cvmfs oasis.opensciencegrid.org /cvmfs/oasis.opensciencegrid.org
   register: result
   until: result | success
   retries: 10
@@ -83,21 +107,21 @@
       STAGEOUTPREFIX={{cms_config_stageoutprefix}}
   tags: cms_config
 
-- name: copy the content of T3_IT_Opportunistic into /opt/exp_sw/cms/
-  shell: cp -r -u /cvmfs/cms.cern.ch/SITECONF/T3_IT_Opportunistic/* /opt/exp_sw/cms/
+- name: copy the content of T3_IT_Opportunistic into /etc/cvmfs/SITECONF/
+  shell: cp -r -u /cvmfs/cms.cern.ch/SITECONF/T3_IT_Opportunistic/* /etc/cvmfs/SITECONF/ 
   tags: cms_config
 
-- name: clearing content /opt/exp_sw/cms/JobConfig/site-local-config.xml
-  shell: cp /dev/null /opt/exp_sw/cms/JobConfig/site-local-config.xml
+- name: clearing content /etc/cvmfs/SITECONF/JobConfig/site-local-config.xml
+  shell: cp /dev/null /etc/cvmfs/SITECONF/JobConfig/site-local-config.xml
   tags: cms_config
 
-- name: clearing content /opt/exp_sw/cms/PhEDEx/storage.xml
-  shell: cp /dev/null /opt/exp_sw/cms/PhEDEx/storage.xml
+- name: clearing content /etc/cvmfs/SITECONF/PhEDEx/storage.xml
+  shell: cp /dev/null /etc/cvmfs/SITECONF/PhEDEx/storage.xml
   tags: cms_config
 
 - name: inserting custom site-local-config.xml
   blockinfile:
-    name: /opt/exp_sw/cms/JobConfig/site-local-config.xml
+    name: /etc/cvmfs/SITECONF/JobConfig/site-local-config.xml
     marker: "<!-- {mark} Creating local TFC -->"
     block: |
       <site-local-config>
@@ -141,7 +165,7 @@
 
 - name: inserting custom storage.xml
   blockinfile:
-    name: /opt/exp_sw/cms/PhEDEx/storage.xml
+    name: /etc/cvmfs/SITECONF/PhEDEx/storage.xml
     marker: "<!-- {mark} Creating local storage.xml -->"
     block: |
       <storage-mapping>
