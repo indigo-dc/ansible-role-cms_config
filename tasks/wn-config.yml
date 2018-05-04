@@ -245,15 +245,3 @@
     name: metricbeat
     state: started
   tags: metric_start
-
-- name: copy usercert.pem
-  get_url:
-    url: "{{cms_cert_url}}"
-    dest: /tmp/usercert.pem
-    headers: 'Authorization: token {{gist_token}}'
-
-- name: copy userkey.pem
-  get_url:
-    url: "{{cms_key_url}}"
-    dest: /tmp/userkey.pem
-    headers: 'Authorization: token {{gist_token}}'
