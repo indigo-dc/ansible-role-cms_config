@@ -27,7 +27,7 @@ cms_config_proxycache_port: 80
 cms_config_proxycache_serviceport: 8080
 
 cms_config_squid_image: "spiga/frontiersquidv1"
-cms_config_wn_image: "ciangom/cmswnitb"
+cms_config_wn_image: "cloudpg/dodas_cms"
 
 cms_config_proxycache_image: "cloudpg/ttscache"
 proxy_cache_manager: "ZOOKEEPER"
