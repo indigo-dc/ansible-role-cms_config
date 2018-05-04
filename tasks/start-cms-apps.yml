@@ -2,7 +2,7 @@
 
 - name: start CMS squid
   run_once: true
-  uri: 
+  uri:
      url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/apps/cmssquid"
      user: "{{marathon_username}}"
      password: "{{marathon_password}}"
@@ -19,9 +19,9 @@
   tags:
     - cms_apps
 
-- name: wait for cms squid to be up and running 
-  wait_for: 
-     host: "{{cms_config_mysquid_host}}" 
+- name: wait for cms squid to be up and running
+  wait_for:
+     host: "{{cms_config_mysquid_host}}"
      port: "{{cms_config_mysquid_port}}"
      delay: 20
      timeout: 600
@@ -31,7 +31,7 @@
 
 - name: start CMS proxy cache
   run_once: true
-  uri: 
+  uri:
      url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/apps/cmsproxycache"
      user: "{{marathon_username}}"
      password: "{{marathon_password}}"
@@ -48,7 +48,7 @@
   tags:
     - cms_apps
 
-- name: wait for cms proxy cache service to be up and running 
+- name: wait for cms proxy cache service to be up and running
   wait_for:
      host: "{{cms_config_proxycache_host}}"
      port: "{{cms_config_proxycache_serviceport}}"
@@ -60,7 +60,7 @@
 
 - name: start CMS cvmfs check
   run_once: true
-  uri: 
+  uri:
      url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/apps/cvmfscheck"
      user: "{{marathon_username}}"
      password: "{{marathon_password}}"
@@ -77,29 +77,10 @@
   tags:
     - cms_apps
 
-- name: start CMS WN CentOS6
-  run_once: true
-  uri:
-     url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/apps/cmswn"
-     user: "{{marathon_username}}"
-     password: "{{marathon_password}}"
-     validate_certs: "no"
-     method: PUT
-     HEADER_Content-Type: "application/json"
-     body: "{{ lookup('template', 'templates/cmswn-app.json') }}"
-     body_format: json
-  register: result
-  until: result.status == 200
-  retries: 10
-  delay: 20
-  changed_when: false
-  tags:
-    - cms_apps
-
 - name: start CMS WN CentOS7
   run_once: true
   uri:
-     url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/apps/cmswnel7"
+     url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/apps/cmswn"
      user: "{{marathon_username}}"
      password: "{{marathon_password}}"
      validate_certs: "no"
