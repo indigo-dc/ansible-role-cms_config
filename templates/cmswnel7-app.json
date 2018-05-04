@@ -19,6 +19,11 @@
         "mode": "RW"
       },
       {
+        "containerPath": "/etc/cvmfs/SITECONF",
+        "hostPath": "/etc/cvmfs/SITECONF",
+        "mode": "RW"
+      },
+      {
         "containerPath": "/sys/fs/cgroup",
         "hostPath": "/sys/fs/cgroup",
         "mode": "RO"
