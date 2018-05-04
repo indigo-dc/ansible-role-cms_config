@@ -28,8 +28,9 @@ cms_config_proxycache_serviceport: 8080
 
 cms_config_squid_image: "spiga/frontiersquidv1"
 cms_config_wn_image: "cloudpg/dodas_cms"
-
 cms_config_proxycache_image: "cloudpg/ttscache"
+cms_xrd_readserver: "xrootd.ba.infn.it"
+
 proxy_cache_manager: "ZOOKEEPER"
 proxy_audience: "https://watts-dev.data.kit.edu"
 proxy_tts: "https://watts-dev.data.kit.edu"
