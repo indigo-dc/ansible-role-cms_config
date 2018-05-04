@@ -3,7 +3,7 @@
         "cmd": "/root/launch_cmswn.sh",
         "cpus": 2.00,
         "mem": 4000,
-        "instances": 1,
+        "instances": 0,
         "container": {
                 "type": "DOCKER",
                 "docker": {

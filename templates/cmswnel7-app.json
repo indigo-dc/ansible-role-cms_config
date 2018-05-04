@@ -25,7 +25,7 @@
       }
     ],
     "docker": {
-      "image": "dciangot/cmswnel7",
+      "image": "{{cms_config_wn_image}}",
       "network": "BRIDGE",
       "privileged": true,
       "parameters": [
