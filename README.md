@@ -9,28 +9,36 @@ Role Variables
 
 Mandatory variables:
 
-- `cms_config_cms_local_site`: MANDATORY - NO DEFAULT AVAILABLE
-- `cms_config_stageoutsite`: MANDATORY - NO DEFAULT AVAILABLE
-- `cms_config_stageoutserver`: MANDATORY - NO DEFAULT AVAILABLE 
-- `cms_config_stageoutprefix`: MANDATORY - NO DEFAULT AVAILABLE
-- `cms_config_stageoutsite_fallback`: MANDATORY - NO DEFAULT AVAILABLE
-- `cms_config_stageoutserver_fallback`: MANDATORY - NO DEFAULT AVAILABLE
-- `cms_config_stageoutprefix_fallback`: MANDATORY - NO DEFAULT AVAILABLE
-- `cms_config_iam_token`: MANDATORY - NO DEFAULT AVAILABLE
-- `cms_config_iam_client_id`: MANDATORY - NO DEFAULT AVAILABLE
-- `cms_config_iam_client_secret`: MANDATORY - NO DEFAULT AVAILABLE
+- `audience`: MANDATORY - NO DEFAULT AVAILABLE
+- `cms_input_path`: MANDATORY - NO DEFAULT AVAILABLE
+- `cms_input_protocol`: MANDATORY - NO DEFAULT AVAILABLE
+- `cms_local_site`:  MANDATORY - NO DEFAULT AVAILABLE
+- `cms_local_site`: MANDATORY - NO DEFAULT AVAILABLE
+- `cms_proxycache_token_manager`: MANDATORY - NO DEFAULT AVAILABLE
+- `cms_stageoutprefix_fallback`: MANDATORY - NO DEFAULT AVAILABLE
+- `cms_stageoutprefix`: MANDATORY - NO DEFAULT AVAILABLE
+- `cms_stageoutserver_fallback`: MANDATORY - NO DEFAULT AVAILABLE
+- `cms_stageoutserver`: MANDATORY - NO DEFAULT AVAILABLE
+- `cms_stageoutsite_fallback`: MANDATORY - NO DEFAULT AVAILABLE
+- `cms_stageoutsite`: MANDATORY - NO DEFAULT AVAILABLE
+- `iam_access_token`: MANDATORY - NO DEFAULT AVAILABLE
+- `iam_client_id`: MANDATORY - NO DEFAULT AVAILABLE
+- `iam_client_secret`: MANDATORY - NO DEFAULT AVAILABLE
+- `iam_credential_endpoint`: MANDATORY - NO DEFAULT AVAILABLE
+- `iam_endpoint`: MANDATORY - NO DEFAULT AVAILABLE
+- `mysquid_host`: MANDATORY - NO DEFAULT AVAILABLE
+- `mysquid_host`: MANDATORY - NO DEFAULT AVAILABLE
+- `proxycache_host`: MANDATORY - NO DEFAULT AVAILABLE
+- `proxycache_host`: MANDATORY - NO DEFAULT AVAILABLE
+- `watts_endpoint`: MANDATORY - NO DEFAULT AVAILABLE
+
 
 Optional variables:
-- `cms_config_cvmfs_repositories` (default: "cms")
-- `cms_config_mysquid_host` (default: "localhost")
-- `cms_config_mysquid_port` (default: 3128)
-- `cms_config_proxycache_host` (default: "localhost")
-- `cms_config_proxycache_port` (default: 80)
-- `cms_config_proxycache_serviceport` (default: 8080)
-- `cms_config_squid_image` (default: "spiga/frontiersquidv1")
-- `cms_config_wn_image` (default: "spiga/cmswndemo_v2")
-- `cms_config_proxycache_image` (default: "spiga/ttsinterface_v1")
-
+- `cms_proxycache_image`:   default: "spiga/ttscache"
+- `cms_squid_image`:  default: "spiga/frontiersquidv1"
+- `cms_wn_image`:  default: "spiga/cmswn"
+- `elasticsearch_secret`: default: ""
+- `monitordb_ip`:  default: ""
 
 Dependencies
 ------------
