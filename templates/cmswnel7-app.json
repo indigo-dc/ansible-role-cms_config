@@ -9,6 +9,11 @@
     "type": "DOCKER",
     "volumes": [
       {
+        "containerPath": "/mnt/onedata",
+        "hostPath": "/etc/cvmfs/SITECONF/onedata",
+        "mode": "RW"
+      },
+      {
         "containerPath": "/opt/exp_sw/cms",
         "hostPath": "/opt/exp_sw/cms",
         "mode": "RW"
@@ -19,7 +24,7 @@
         "mode": "RW"
       },
       {
-        "containerPath": "/etc/cvmfs/SITECONF",
+        "containerPath": "/etc/cvmfs/SITECON",
         "hostPath": "/etc/cvmfs/SITECONF",
         "mode": "RW"
       },
