@@ -182,7 +182,7 @@
       path-match="/+store/(.*)"   result="{{cms_config_stageoutprefix}}/store/$1"/>
 
       <lfn-to-pfn protocol="onedata" destination-match=".*"
-      path-match="/(.*)" result="/mnt/onedata/{{cms_input_path}}/$1"/>  
+      path-match="/(.*)" result="/etc/cvmfs/SITECONF/onedata/{{cms_input_path}}/$1"/>  
 
       <!-- PFN TO LFN -->
 
