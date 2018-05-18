@@ -9,8 +9,8 @@
     "type": "DOCKER",
     "volumes": [
       {
-        "containerPath": "/mnt/onedata",
-        "hostPath": "/etc/cvmfs/SITECONF/onedata",
+        "hostPath": "/mnt/onedata",
+        "containerPath": "/etc/cvmfs/SITECONF/onedata",
         "mode": "RW"
       },
       {
