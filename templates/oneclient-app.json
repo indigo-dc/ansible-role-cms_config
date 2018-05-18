@@ -1,6 +1,6 @@
 {
     "id": "/oneclient",
-    "cmd": "volume=\"/mnt/onedata\"\n\nif mount|grep $volume; then\n    oneclient -u /mnt/onedata\nelse\n    mkdir -p /mnt/onedata\nfi\n\nwhile true; do\n\nif mount|grep $volume; then\n    echo \"oneclient already mounted\"\nelse\n    oneclient /mnt/onedata --insecure -i -o allow_other\n    echo \"oneclient mounted\"\nfi\nsleep 60\ndone",
+    "cmd": "volume=\"/mnt/onedata\"\n\nif mount|grep $volume; then\n    oneclient -u /mnt/onedata\nelse\n    mkdir -p /mnt/onedata\nfi\n\nwhile true; do\n\nif mount|grep $volume; then\n    echo \"oneclient already mounted\"\nelse\n    oneclient /mnt/onedata --insecure -i -o allow_other  --force-direct-io --monitoring-type graphite --monitoring-level-full --monitoring-period 5 --graphite-url tcp://192.168.51.95:2003 --graphite-namespace-prefix oneclient-`hostname | cut -f1 -d.` --force-fullblock-read\n    echo \"oneclient mounted\"\nfi\nsleep 60\ndone",
     "cpus": 0.1,
     "mem": 32,
     "disk": 0,
