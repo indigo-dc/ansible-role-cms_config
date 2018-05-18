@@ -20,11 +20,10 @@
       CVMFS_REPOSITORIES={{cms_config_cvmfs_repositories}}
   tags: cms_config
 
-
-- name: create necessary dirs
   file:  path={{item}} state=directory mode=0755
   with_items:
     - /etc/cvmfs/SITECONF
+    - /mnt/onedata
   tags: cms_config
 
 - name: set CMS_LOCAL_SITE variable

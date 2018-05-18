@@ -1,0 +1,21 @@
+{
+    "id": "/oneclient",
+    "cmd": "volume=\"/mnt/onedata\"\n\nif mount|grep $volume; then\n    oneclient -u /mnt/onedata\nelse\n    mkdir -p /mnt/onedata\nfi\n\nwhile true; do\n\nif mount|grep $volume; then\n    echo \"oneclient already mounted\"\nelse\n    oneclient /mnt/onedata --insecure -i -o allow_other\n    echo \"oneclient mounted\"\nfi\nsleep 60\ndone",
+    "cpus": 0.1,
+    "mem": 32,
+    "disk": 0,
+    "instances": 0,
+    "constraints": [
+      [
+        "hostname",
+        "UNIQUE"
+      ]
+    ],
+    "acceptedResourceRoles": [
+      "*"
+    ],
+    "env": {
+      "ONECLIENT_ACCESS_TOKEN": "{{ oneclient_token}}",
+      "ONECLIENT_PROVIDER_HOST": "{{ oneprovider_name }}"
+    }
+}
