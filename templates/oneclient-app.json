@@ -17,5 +17,18 @@
     "env": {
       "ONECLIENT_ACCESS_TOKEN": "{{ oneclient_token}}",
       "ONECLIENT_PROVIDER_HOST": "{{ oneprovider_name }}"
-    }
+    },
+    "healthChecks": [
+      {
+        "gracePeriodSeconds": 300,
+        "intervalSeconds": 60,
+        "timeoutSeconds": 20,
+        "maxConsecutiveFailures": 3,
+        "delaySeconds": 15,
+        "command": {
+          "value": "volume=\"/mnt/onedata\"  if mount|grep $volume; exit 0;else exit 1;fi"
+        },
+        "protocol": "COMMAND"
+      }
+    ]
 }
