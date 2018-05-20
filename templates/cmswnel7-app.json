@@ -24,7 +24,7 @@
         "mode": "RW"
       },
       {
-        "containerPath": "/etc/cvmfs/SITECON",
+        "containerPath": "/etc/cvmfs/SITECONF",
         "hostPath": "/etc/cvmfs/SITECONF",
         "mode": "RW"
       },
