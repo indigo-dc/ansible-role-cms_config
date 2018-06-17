@@ -149,7 +149,7 @@
       <local-stage-out>
         <command value="xrdcp"/>
         <option value="--wma-disablewriterecovery"/>
-        <catalog url="trivialcatalog_file:/cvmfs/cms.cern.ch/SITECONF/{{cms_config_stageoutsite}}/PhEDEx/storage.xml?protocol={{stageout_protocol}}"/>
+        <catalog url="trivialcatalog_file:/cvmfs/cms.cern.ch/SITECONF/{{cms_config_stageoutsite}}/PhEDEx/storage.xml?protocol={{cms_config_stageoutprotocol}}"/>
         <se-name value="srm-eoscms.cern.ch"/>
         <phedex-node value="{{cms_config_stageoutsite}}"/>
       </local-stage-out>
