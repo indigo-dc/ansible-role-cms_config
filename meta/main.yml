@@ -12,5 +12,5 @@ galaxy_info:
    - cms
    - cvmfs
 
-dependencies:
-  - role: indigo-dc.oneclient
+#dependencies:
+#  - role: indigo-dc.oneclient
