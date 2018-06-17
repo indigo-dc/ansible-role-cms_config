@@ -20,11 +20,22 @@
       CVMFS_REPOSITORIES={{cms_config_cvmfs_repositories}}
   tags: cms_config
 
-
 - name: create necessary dirs
   file:  path={{item}} state=directory mode=0755
   with_items:
     - /etc/cvmfs/SITECONF
+  tags: cms_config
+
+- name: create necessary dirs
+  file:  path={{item}} state=directory mode=0755
+  with_items:
+    - /etc/cvmfs/SITECONF/PhEDEx
+  tags: cms_config
+
+- name: create necessary dirs
+  file:  path={{item}} state=directory mode=0755
+  with_items:
+    - /etc/cvmfs/SITECONF/JobConfig
   tags: cms_config
 
 - name: set CMS_LOCAL_SITE variable
@@ -110,26 +121,12 @@
     content: |
       CMS_LOCAL_SITE={{cms_config_cms_local_site}}
       MYSQUID={{cms_config_mysquid}}
-      STAGEOUTSITE={{cms_config_stageoutsite}}
-      STAGEOUTSERVER={{cms_config_stageoutserver}}
-      STAGEOUTPREFIX={{cms_config_stageoutprefix}}
-  tags: cms_config
-
-- name: copy the content of T3_IT_Opportunistic into /etc/cvmfs/SITECONF/
-  shell: cp -r -u /cvmfs/cms.cern.ch/SITECONF/T3_IT_Opportunistic/* /etc/cvmfs/SITECONF/
-  tags: cms_config
-
-- name: clearing content /etc/cvmfs/SITECONF/JobConfig/site-local-config.xml
-  shell: cp /dev/null /etc/cvmfs/SITECONF/JobConfig/site-local-config.xml
-  tags: cms_config
-
-- name: clearing content /etc/cvmfs/SITECONF/PhEDEx/storage.xml
-  shell: cp /dev/null /etc/cvmfs/SITECONF/PhEDEx/storage.xml
   tags: cms_config
 
 - name: inserting custom site-local-config.xml
   blockinfile:
-    name: /etc/cvmfs/SITECONF/JobConfig/site-local-config.xml
+    dest: /etc/cvmfs/SITECONF/JobConfig/site-local-config.xml
+    create: yes
     marker: "<!-- {mark} Creating local TFC -->"
     block: |
       <site-local-config>
@@ -137,14 +134,10 @@
       <event-data>
       <catalog url="trivialcatalog_file:/cvmfs/cms.cern.ch/SITECONF/local/PhEDEx/storage.xml?protocol={{cms_input_protocol}}"/>
       </event-data>
-      <source-config>
-      <statistics-destination name="cms-udpmon-collector.cern.ch:9331" />
-      </source-config>
       <calib-data>
       <frontier-connect>
       <load balance="proxies"/>
-      <proxy url="http://cmssquid.pi.infn.it:3128"/>
-      <proxy url="http://cmssquid2.pi.infn.it:3128"/>
+      <proxy url="{{cms_config_mysquid_host}}:{{cms_config_mysquid_port}}"/>
       <backupproxy url="http://cmsbpfrontier.cern.ch:3128"/>
       <backupproxy url="http://cmsbproxy.fnal.gov:3128"/>
       <server url="http://cmsfrontier.cern.ch:8000/FrontierInt"/>
@@ -154,47 +147,34 @@
       </frontier-connect>
       </calib-data>
       <local-stage-out>
-      <command value="srmv2-lcg"/>
-      <option value="-v --connect-timeout 240"/>
-      <catalog url="trivialcatalog_file:/cvmfs/cms.cern.ch/SITECONF/local/PhEDEx/storage.xml?protocol=srmv2"/>
-      <se-name value="{{cms_config_stageoutserver}}"/>
-      <phedex-node value="{{cms_config_stageoutsite}}"/>
+        <command value="xrdcp"/>
+        <option value="--wma-disablewriterecovery"/>
+        <catalog url="trivialcatalog_file:/cvmfs/cms.cern.ch/SITECONF/{{cms_config_stageoutsite}}/PhEDEx/storage.xml?protocol={{stageout_protocol}}"/>
+        <se-name value="srm-eoscms.cern.ch"/>
+        <phedex-node value="{{cms_config_stageoutsite}}"/>
       </local-stage-out>
-      <fallback-stage-out>
-      <se-name value="{{cms_config_stageoutserver_fallback}}"/>
-      <phedex-node value="{{cms_config_stageoutsite_fallback}}"/>
-      <lfn-prefix value="{{cms_config_stageoutprefix_fallback}}"/>
-      <command value="srmv2-lcg"/>
-      <option value="-v "/>
-      </fallback-stage-out>
       </site>
       </site-local-config>
   tags: cms_config
 
 - name: inserting custom storage.xml
   blockinfile:
-    name: /etc/cvmfs/SITECONF/PhEDEx/storage.xml
+    dest: /etc/cvmfs/SITECONF/PhEDEx/storage.xml
+    create: yes
     marker: "<!-- {mark} Creating local storage.xml -->"
     block: |
       <storage-mapping>
+      <!-- AAA xrootd read rule -->
+      <lfn-to-pfn protocol="xrootd"
+              destination-match=".*"
+              path-match="/+store/(.*)"
+              result="root://{{cms_xrd_readserver}}/store/$1"/>
 
-      <lfn-to-pfn protocol="srmv2" destination-match=".*"
-      path-match="/+store/(.*)"   result="{{cms_config_stageoutprefix}}/store/$1"/>
-
-      <lfn-to-pfn protocol="onedata" destination-match=".*"
-      path-match="/(.*)" result="/mnt/onedata/{{cms_input_path}}/$1"/>  
-
-      <!-- PFN TO LFN -->
-
-      <pfn-to-lfn protocol="dcap" destination-match=".*" path-match=".*gpfs/ddn/srm/cms/(.*)" result="/$1"/>
-
-      <pfn-to-lfn protocol="srmv2" destination-match=".*"  path-match=".*\?SFN=/cms/(.*)" result="/$1"/>
-
-      <pfn-to-lfn protocol="srm" destination-match=".*"  path-match=".*\?SFN=/cms/(.*)" result="/$1"/>
-
-      <!-- FALLBACK SU PISA XROOTD -->
-      <lfn-to-pfn protocol="xrootd" path-match="/+store/(.*)" result="root://{{cms_xrd_readserver}}//store/$1"/>
-      <pfn-to-lfn protocol="xrootd" destination-match=".*" path-match="root://{{cms_xrd_readserver}}//store/(.*)" result="/store/$1"/>
+      <!-- Onedata read rule -->
+      <lfn-to-pfn protocol="onedata"
+              destination-match=".*"
+              path-match="/(.*)" 
+              result="/mnt/onedata/{{cms_input_path}}/$1"/>  
 
       </storage-mapping>
   tags: cms_config
