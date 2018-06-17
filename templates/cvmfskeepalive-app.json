@@ -10,5 +10,18 @@
       "hostname",
       "UNIQUE"
     ]
+  ],
+  "healthChecks": [
+    {
+      "command": {
+        "value": "ls /cvmfs/cms.cern.ch/cmsset_default.sh"
+      },
+      "protocol": "COMMAND",
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 20,
+      "maxConsecutiveFailures": 3,
+      "delaySeconds": 15
+    }
   ]
 }

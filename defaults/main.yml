@@ -2,6 +2,7 @@
 # defaults file for cms_config
 
 marathon_username: admin
+marathon_password: passwd
 marathon_port: 8080
 marathon_protocol: http
 
@@ -10,7 +11,8 @@ marathon_protocol: http
 #cms_config_stageoutsite: MANDATORY - NO DEFAULT AVAILABLE
 #cms_config_stageoutserver: MANDATORY - NO DEFAULT AVAILABLE 
 #cms_config_stageoutprefix: MANDATORY - NO DEFAULT AVAILABLE 
-#cms_config_iamtoken: MANDATORY - NO DEFAULT AVAILABLE
+#cms_config_iam_token: MANDATORY - NO DEFAULT AVAILABLE
+#zookeeper_host_list: MANDATORY - NO DEFAULT AVAILABLE
 ####
 
 cms_config_cvmfs_http_proxy: "http://{{cms_config_mysquid_host}}:{{cms_config_mysquid_port}}"
@@ -25,6 +27,16 @@ cms_config_proxycache_port: 80
 cms_config_proxycache_serviceport: 8080
 
 cms_config_squid_image: "spiga/frontiersquidv1"
-cms_config_wn_image: "ciangom/cmswnitb"
-cms_config_proxycache_image: "ciangom/ttsinterface"
+cms_config_wn_image: "cloudpg/dodas_cms"
+cms_config_proxycache_image: "cloudpg/ttscache"
+cms_xrd_readserver: "xrootd.ba.infn.it"
+
+proxy_cache_manager: "ZOOKEEPER"
+proxy_audience: "https://watts-dev.data.kit.edu"
+proxy_tts: "https://watts-dev.data.kit.edu"
+proxy_iam_endpoint: "https://iam-test.indigo-datacloud.eu/"
+proxy_credential_endpoint: "https://watts-dev.data.kit.edu/api/v2/iam/credential"
+proxy_local_cache_expiration_time: 864000
+proxy_lock_file_age: 20
+proxy_cache_dir: "/tmp"
 

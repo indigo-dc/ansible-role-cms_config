@@ -15,6 +15,19 @@
     "labels":{
       "HAPROXY_GROUP":"external"
     },
+    "healthChecks": [
+      {
+        "command": {
+          "value": "curl -I http://$HOST:$PORT | grep -q squid"
+        },
+        "protocol": "COMMAND",
+        "gracePeriodSeconds": 300,
+        "intervalSeconds": 60,
+        "timeoutSeconds": 20,
+        "maxConsecutiveFailures": 3,
+        "delaySeconds": 15
+      }
+    ],
     "cmd": "/launch_squid.sh",
     "instances": 1,
     "cpus": 1.00,
