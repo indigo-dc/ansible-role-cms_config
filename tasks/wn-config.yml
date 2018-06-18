@@ -168,7 +168,7 @@
       <lfn-to-pfn protocol="xrootd"
               destination-match=".*"
               path-match="/+store/(.*)"
-              result="root://{{cms_xrd_readserver}}/store/$1"/>
+              result="root://{{cms_xrd_readserver}}//store/$1"/>
 
       <!-- Onedata read rule -->
       <lfn-to-pfn protocol="onedata"
