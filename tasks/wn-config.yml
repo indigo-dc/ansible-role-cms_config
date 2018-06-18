@@ -1,8 +1,9 @@
 ---
 # tasks file for cms_config
 - name: install cvmfs repo
-  apt: deb=https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-latest_all.deb
-  force: yes
+  apt: 
+    deb: https://ecsft.cern.ch/dist/cvmfs/cvmfs-release/cvmfs-release-latest_all.deb
+    force: yes
   tags: cms_config
 
 - name: Install cvmfs packages
