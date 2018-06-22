@@ -16,3 +16,5 @@
   retries: 10	
   delay: 20	
   changed_when: false	
+  tags:
+    - cms_apps
