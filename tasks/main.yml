@@ -5,4 +5,4 @@
 - include: start-cms-apps.yml
   when: cms_config_node is undefined
 - include: oneclient.yml
-  when: (cms_config_node is undefined) and (cms_input_protocol == "onedata")
+  when: (cms_config_node is undefined) and (cms_input_protocol is defined) and (cms_input_protocol == "onedata")
