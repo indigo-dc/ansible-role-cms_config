@@ -1,3 +1,5 @@
+---
+
 - name: start oneclient and mount on host /mnt/onedata	
   run_once: true	
   uri:	
