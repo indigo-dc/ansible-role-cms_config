@@ -3,4 +3,6 @@
 - include: wn-config.yml
   when: (cms_config_node is defined) and (cms_config_node == "wn")
 - include: start-cms-apps.yml
-  when: cms_config_node is undefined 
+  when: cms_config_node is undefined
+- include: oneclient.yml
+  when: (cms_config_node is undefined) and (cms_input_protocol is defined) and (cms_input_protocol == "onedata")

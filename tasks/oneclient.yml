@@ -1,0 +1,20 @@
+---
+
+- name: start oneclient and mount on host /mnt/onedata	
+  run_once: true	
+  uri:	
+     url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/apps/oneclient"	
+     user: "{{marathon_username}}"	
+     password: "{{marathon_password}}"	
+     validate_certs: "no"	
+     method: PUT	
+     HEADER_Content-Type: "application/json"	
+     body: "{{ lookup('template', 'templates/oneclient-app.json') }}"	
+     body_format: json	
+  register: result	
+  until: result.status == 200	
+  retries: 10	
+  delay: 20	
+  changed_when: false	
+  tags:
+    - cms_apps
