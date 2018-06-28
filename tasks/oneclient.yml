@@ -1,6 +1,6 @@
 ---
 
-- name: start oneclient and mount on host /mnt/onedata	
+- name: start oneclient and mount on host /mnt/onedata
   run_once: true	
   uri:	
      url: "{{marathon_protocol}}://marathon.service.consul:{{marathon_port}}/v2/apps/oneclient"	
