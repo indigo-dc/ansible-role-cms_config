@@ -147,12 +147,17 @@
       </frontier-connect>
       </calib-data>
       <local-stage-out>
-        <command value="gfal2"/>
-        <option value="--wma-disablewriterecovery"/>
+        <command value="{{cms_config_stageoutcommand}}"/> 
         <catalog url="trivialcatalog_file:/cvmfs/cms.cern.ch/SITECONF/{{cms_config_stageoutsite}}/PhEDEx/storage.xml?protocol={{cms_config_stageoutprotocol}}"/>
         <se-name value="srm-eoscms.cern.ch"/>
-        <phedex-node value="{{cms_config_stageoutsite}}"/>
+        <phedex-node value="{{cms_config_phedexnode}}"/>
       </local-stage-out>
+      <fallback-stage-out> 
+        <se-name value="t2-srm-02.lnl.infn.it"/> 
+        <phedex-node value="{{cms_config_fallback_phedexnode}}"/> 
+        <lfn-prefix value="{{cms_config_fallback_lfn_prefix}}"/> 
+        <command value="{{cms_config_fallback_command}}"/> 
+      </fallback-stage-out> 
       </site>
       </site-local-config>
   tags: cms_config
