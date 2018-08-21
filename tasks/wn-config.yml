@@ -5,7 +5,7 @@
   tags: cms_config
 
 - name: Install cvmfs packages
-  apt: name={{item}} state=present update_cache=yes
+  apt: name={{item}} state=present update_cache=yes allow_unauthenticated=yes
   with_items:
        - cvmfs
        - cvmfs-config-default
