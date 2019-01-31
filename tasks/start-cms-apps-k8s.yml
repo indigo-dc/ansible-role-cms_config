@@ -18,7 +18,7 @@
 - name: compile tts cache  service config
   template:
     src: templates/k8s/tts_cache-service.json
-    dest: /etc/tts_service.json
+    dest: /etc/tts_cache-service.json
 
 - name: compile wn pod config
   template:
@@ -31,10 +31,10 @@
     dest: /etc/cvmfs.json   
 
 - name: create squid pod
-  command: cat /etc/squid.json | kubectl apply -f -
+  command: kubectl apply -f /etc/squid.json
 
 - name: create squid service
-  command: cat /etc/squid-service.json | kubectl apply -f -
+  command: kubectl apply -f /etc/squid-service.json
 
 - name: wait for cms squid to be up and running
   wait_for:
@@ -45,10 +45,10 @@
     connect_timeout: 10
 
 - name: create tts_cache pod
-  command: cat /etc/tts_cache.json | kubectl apply -f -
+  command: kubectl apply -f /etc/tts_cache.json
 
 - name: create tts_cache service
-  command: cat /etc/tts_cache-service.json | kubectl apply -f -
+  command: kubectl apply -f /etc/tts_cache-service.json
 
 - name: wait for cms proxy cache service to be up and running
   wait_for:
@@ -59,7 +59,7 @@
     connect_timeout: 10
 
 - name: create wn pod
-  command: cat /etc/wn.json | kubectl apply -f -
+  command: kubectl apply -f /etc/wn.json
 
 - name: create cvmfs pod
-  command: cat /etc/cvmfs.json | kubectl apply -f -
+  command: kubectl apply -f /etc/cvmfs.json
