@@ -1,0 +1,81 @@
+{
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "tts-cache-pod",
+      "labels": {
+        "app": "tts-cache"
+      }
+    },
+    "spec": {
+      "template": {
+        "metadata": {
+          "labels": {
+            "app": "tts-cache"
+          }
+        },
+        "spec": {
+          "containers": [
+            {
+              "name": "tts-cache",
+              "imagePullPolicy": "Always",
+              "env": [
+                {
+                  "name": "IAM_TOKEN",
+                  "value": "{{ cms_config_iam_token }}"
+                },
+                {
+                  "name": "IAM_CLIENT_ID",
+                  "value": "{{ cms_config_iam_client_id }}"
+                },
+                {
+                  "name": "IAM_CLIENT_SECRET",
+                  "value": "{{ cms_config_iam_client_secret }}"
+                },
+                {
+                  "name": "PROXY_AUDIENCE",
+                  "value": "{{ proxy_audience }}"
+                },
+                {
+                  "name": "PROXY_TTS",
+                  "value": "{{ proxy_tts }}"
+                },
+                {
+                  "name": "PROXY_IAM_ENDPOINT",
+                  "value": "{{ proxy_iam_endpoint }}"
+                },
+                {
+                  "name": "PROXY_CREDENTIAL_ENDPOINT",
+                  "value": "{{ proxy_credential_endpoint }}"
+                },
+                {
+                  "name": "PROXY_LOCAL_CACHE_EXPIRATION_TIME",
+                  "value": "{{ proxy_local_cache_expiration_time }}"
+                },
+                {
+                  "name": "PROXY_LOCK_FILE_AGE",
+                  "value": "{{ proxy_lock_file_age }}"
+                },
+                {
+                  "name": "PROXY_CACHE_DIR",
+                  "value": "{{ proxy_cache_dir }}"
+                }
+              ],
+              "image": "{{ cms_config_proxycache_image }}",
+              "ports": [
+                {
+                  "containerPort": {{ cms_config_proxycache_port }}
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "selector": {
+        "matchLabels": {
+          "app": "tts-cache"
+        }
+      },
+      "replicas": 1
+    }
+  }

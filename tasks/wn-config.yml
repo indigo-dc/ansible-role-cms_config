@@ -83,6 +83,7 @@
   tags: cms_config
 
 - name: mount CVMFS cms
+  when: ((cms_orchestrator != "k8s") and (cms_orchestrator != "kubernetes"))
   command: mount -t cvmfs cms.cern.ch /cvmfs/cms.cern.ch/
   register: result
   until: result | success

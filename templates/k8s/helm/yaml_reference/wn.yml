@@ -1,0 +1,72 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wn-pod
+  labels:
+    app: wn
+spec:
+  template:
+    metadata:
+      labels:
+        app: wn
+    spec:
+      containers:
+      - name: wn
+        securityContext:
+          privileged: true
+          capabilities:
+            add: ["SYS_ADMIN"]
+        imagePullPolicy: Always
+        command:
+        - /usr/local/bin/dodas.sh
+        env:
+        - name: FRONTIER_PROXY
+          value: "http://90.147.170.55:3128" 
+        - name: CMS_LOCAL_SITE
+          value: T3_IT_Opportunistic_xcache
+        - name: PROXY_CACHE
+          value: "10.97.164.243:8080" 
+        - name: XrdSecGSIDELEGPROXY
+          value: "2"
+        - name: XrdSecGSISRVNAMES
+          value: "*"
+        volumeMounts:
+        - mountPath: /opt/exp_sw/cms
+          name: exp-sw
+        - mountPath: /cvmfs
+          name: cvmfs
+        - mountPath: /etc/cvmfs/SITECONF
+          name: siteconf
+        - mountPath: /sys/fs/cgroup 
+          name: cgroup
+        image: dodasts/cms 
+      volumes:
+      - name: exp-sw
+        hostPath:
+          # directory location on host
+          path: /opt/exp_sw/cms
+          # this field is optional
+          type: DirectoryOrCreate
+      - name: cvmfs
+        hostPath:
+          # directory location on host
+          path: /cvmfs
+          # this field is optional
+          type: Directory
+      - name: siteconf
+        hostPath:
+          # directory location on host
+          path: /etc/cvmfs/SITECONF
+          # this field is optional
+          type: Directory
+      - name: cgroup
+        hostPath:
+         path: /sys/fs/cgroup
+         type: Directory
+
+  selector:
+    matchLabels:
+      app: wn
+
+  replicas: 1

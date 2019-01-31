@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cvmfs 
+  labels:
+    app: cvmfs
+spec:
+  template:
+    metadata:
+      labels:
+        app: cvmfs 
+    spec: 
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - cvmfs
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: cvmfs
+        image: cloudpg/cvmfs
+        securityContext:
+          privileged: true
+          capabilities:
+            add: ["SYS_ADMIN"]
+        volumeMounts:
+        - mountPath: /cvmfs
+          name: cvmfs
+          mountPropagation: Bidirectional
+        - mountPath: /etc
+          name: etc
+      restartPolicy: Always
+      volumes:
+      - name: cvmfs
+        hostPath:
+          path: /cvmfs
+          type: Directory
+      - name: etc
+        hostPath:
+          path: /etc
+          type: Directory
+  selector:
+    matchLabels:
+      app: cvmfs
+
+  replicas: 1

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: squid-pod
+  labels:
+    app: squid
+spec:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app
+            operator: In
+            values:
+            - squid
+        topologyKey: "kubernetes.io/hostname"
+  template:
+    metadata:
+      labels:
+        app: squid
+    spec:
+      containers:
+      - name: squid
+        imagePullPolicy: Always
+        command:
+        - /launch_squid.sh
+        image: spiga/frontiersquidv1
+        ports:
+        - containerPort: 3128
+
+  selector:
+    matchLabels:
+      app: squid
+
+  replicas: 1

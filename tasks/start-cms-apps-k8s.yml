@@ -1,0 +1,19 @@
+---
+
+- name: create squid pod
+  command: kubectl apply -f {{ lookup('template', 'templates/k8s/squid.json') }}
+
+- name: create squid service
+  command: kubectl apply -f {{ lookup('template', 'templates/k8s/squid-service.json') }}
+
+- name: create tts_cache pod
+  command: kubectl apply -f {{ lookup('template', 'templates/k8s/tts_cache.json') }}
+
+- name: create tts_cache service
+  command: kubectl apply -f {{ lookup('template', 'templates/k8s/tts_cache-service.json') }}
+
+- name: create wn pod
+  command: kubectl apply -f {{ lookup('template', 'templates/k8s/wn.json') }}
+
+- name: create cvmfs pod
+  command: kubectl apply -f {{ lookup('template', 'templates/k8s/cvmfs.json') }}

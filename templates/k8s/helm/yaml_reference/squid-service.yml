@@ -1,0 +1,16 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: squid-service
+spec:
+  type: ClusterIP 
+  selector:
+    app: squid
+  ports:
+  - protocol: TCP
+    name: squid
+    port: 3128
+    targetPort: 3128
+  externalIPs:
+  - 90.147.170.55

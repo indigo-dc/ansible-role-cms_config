@@ -1,0 +1,14 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: tts-cache-service
+spec:
+  type: ClusterIP 
+  selector:
+    app: tts-cache
+  ports:
+  - protocol: TCP
+    name: tts-cache
+    port: 8080
+    targetPort: 80

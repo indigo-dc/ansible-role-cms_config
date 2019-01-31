@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tts-cache-pod
+  labels:
+    app: tts-cache
+spec:
+  template:
+    metadata:
+      labels:
+        app: tts-cache
+    spec:
+      containers:
+      - name: tts-cache
+        imagePullPolicy: Always
+        env:
+        - name: IAM_TOKEN
+          value: eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTcwNzRlNS05NmZlLTQzZTgtODgxZC00ZDU3MmMxMjg5MzEiLCJpc3MiOiJodHRwczpcL1wvZG9kYXMtaWFtLmNsb3VkLmNuYWYuaW5mbi5pdFwvIiwiZXhwIjoxNTQ4Nzg4NjY0LCJpYXQiOjE1NDg3NzQyNjQsImp0aSI6IjFjMmYyOWQzLWUzNjUtNDI0Zi05ZmUwLWUyY2QwNWU0ZTQ4MiJ9.acCMx1o4MSG9gfRL1Z0juNwvpLkSK3xXrX6qA2PrscdaJSRKfKCNQgdYdJlrzBA1_Az0lcXA5zsAjFMx5OTj2tOQWSM8sG0FQ5vk40gtDE6muSxWvuBB0KntmfejhaUFlGnCqByz80JK-45JxuXHXP6eT-qlCTtkZzq0vyMtr8M
+        - name: IAM_CLIENT_ID
+          value: 99f7152a-0550-4be6-8c55-8f27dcbe67e0
+        - name: IAM_CLIENT_SECRET
+          value: AIEx7S3vAiIKhinEPndgnEw61GHxMC0k-_4wiVXpLOhLokr97-wNK5PEgMZOpqfO6UkKVARyBb2lQ8i4Qdv_38o
+        - name: PROXY_AUDIENCE
+          value: https://dodas-tts.cloud.cnaf.infn.it
+        - name: PROXY_TTS
+          value: https://dodas-tts.cloud.cnaf.infn.it
+        - name: PROXY_IAM_ENDPOINT
+          value: https://dodas-iam.cloud.cnaf.infn.it/
+        - name: PROXY_CREDENTIAL_ENDPOINT
+          value: https://dodas-tts.cloud.cnaf.infn.it/api/v2/iam/credential
+        - name: PROXY_LOCAL_CACHE_EXPIRATION_TIME
+          value: "864000"
+        - name: PROXY_LOCK_FILE_AGE
+          value: "20"
+        - name: PROXY_CACHE_DIR 
+          value: /tmp
+        image: dodasts/ttscache
+        ports:
+        - containerPort: 80
+
+  selector:
+    matchLabels:
+      app: tts-cache 
+
+  replicas: 1

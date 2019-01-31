@@ -1,0 +1,22 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+      "name": "tts-cache-service"
+    },
+    "spec": {
+      "type": "ClusterIP",
+      "selector": {
+        "app": "tts-cache"
+      },
+      "ports": [
+        {
+          "protocol": "TCP",
+          "name": "tts-cache",
+          "port": {{ cms_config_proxycache_serviceport }},
+          "targetPort": {{ cms_config_proxycache_port }}
+        }
+      ],
+      "externalIPs": ["{{ cms_config_proxycache_host }}"]
+    }
+  }

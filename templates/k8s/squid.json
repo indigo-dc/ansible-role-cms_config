@@ -1,0 +1,62 @@
+{
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "squid-pod",
+      "labels": {
+        "app": "squid"
+      }
+    },
+    "spec": {
+      "template": {
+        "metadata": {
+          "labels": {
+            "app": "squid"
+          }
+        },
+        "spec": {
+          "affinity": {
+            "podAntiAffinity": {
+              "requiredDuringSchedulingIgnoredDuringExecution": [
+                {
+                  "labelSelector": {
+                    "matchExpressions": [
+                      {
+                        "key": "app",
+                        "operator": "In",
+                        "values": [
+                          "cvmfs"
+                        ]
+                      }
+                    ]
+                  },
+                  "topologyKey": "kubernetes.io/hostname"
+                }
+              ]
+            }
+          },
+          "containers": [
+            {
+              "name": "squid",
+              "imagePullPolicy": "Always",
+              "command": [
+                "/launch_squid.sh"
+              ],
+              "image": "{{cms_config_squid_image}}",
+              "ports": [
+                {
+                  "containerPort":  {{cms_config_mysquid_port}}
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "selector": {
+        "matchLabels": {
+          "app": "squid"
+        }
+      },
+      "replicas": 1
+    }
+  }

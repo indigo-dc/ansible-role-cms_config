@@ -1,0 +1,115 @@
+{
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "wn-pod",
+      "labels": {
+        "app": "wn"
+      }
+    },
+    "spec": {
+      "template": {
+        "metadata": {
+          "labels": {
+            "app": "wn"
+          }
+        },
+        "spec": {
+          "containers": [
+            {
+              "name": "wn",
+              "securityContext": {
+                "privileged": true,
+                "capabilities": {
+                  "add": [
+                    "SYS_ADMIN"
+                  ]
+                }
+              },
+              "imagePullPolicy": "Always",
+              "command": [
+                "/usr/local/bin/dodas.sh"
+              ],
+              "env": [
+                {
+                  "name": "FRONTIER_PROXY",
+                  "value": "{{cms_config_mysquid}}"
+                },
+                {
+                  "name": "CMS_LOCAL_SITE",
+                  "value": "{{cms_config_cms_local_site}}"
+                },
+                {
+                  "name": "PROXY_CACHE",
+                  "value": "{{cms_config_proxycache_host}}:{{cms_config_proxycache_serviceport}}"
+                },
+                {
+                  "name": "XrdSecGSIDELEGPROXY",
+                  "value": "2"
+                },
+                {
+                  "name": "XrdSecGSISRVNAMES",
+                  "value": "*"
+                }
+              ],
+              "volumeMounts": [
+                {
+                  "mountPath": "/opt/exp_sw/cms",
+                  "name": "exp-sw"
+                },
+                {
+                  "mountPath": "/cvmfs",
+                  "name": "cvmfs"
+                },
+                {
+                  "mountPath": "/etc/cvmfs/SITECONF",
+                  "name": "siteconf"
+                },
+                {
+                  "mountPath": "/sys/fs/cgroup",
+                  "name": "cgroup"
+                }
+              ],
+              "image": "{{cms_config_wn_image}}"
+            }
+          ],
+          "volumes": [
+            {
+              "name": "exp-sw",
+              "hostPath": {
+                "path": "/opt/exp_sw/cms",
+                "type": "DirectoryOrCreate"
+              }
+            },
+            {
+              "name": "cvmfs",
+              "hostPath": {
+                "path": "/cvmfs",
+                "type": "Directory"
+              }
+            },
+            {
+              "name": "siteconf",
+              "hostPath": {
+                "path": "/etc/cvmfs/SITECONF",
+                "type": "Directory"
+              }
+            },
+            {
+              "name": "cgroup",
+              "hostPath": {
+                "path": "/sys/fs/cgroup",
+                "type": "Directory"
+              }
+            }
+          ]
+        }
+      },
+      "selector": {
+        "matchLabels": {
+          "app": "wn"
+        }
+      },
+      "replicas": 1
+    }
+  }

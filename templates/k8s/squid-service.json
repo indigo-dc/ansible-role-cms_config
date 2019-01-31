@@ -1,0 +1,22 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+      "name": "squid-service"
+    },
+    "spec": {
+      "type": "ClusterIP",
+      "selector": {
+        "app": "squid"
+      },
+      "ports": [
+        {
+          "protocol": "TCP",
+          "name": "squid",
+          "port": {{cms_config_mysquid_port}},
+          "targetPort": {{cms_config_mysquid_port}}
+        }
+      ],
+      "externalIPs": ["{{ cms_config_mysquid_host }}"]
+    }
+  }
