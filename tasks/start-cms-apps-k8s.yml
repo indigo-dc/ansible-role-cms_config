@@ -1,19 +1,65 @@
 ---
 
+- name: compile squid pod config
+  template:
+    src: templates/k8s/squid.json
+    dest: /etc/squid.json
+
+- name: compile squid service config
+  template:
+    src: templates/k8s/squid-service.json
+    dest: /etc/squid-service.json
+
+- name: compile tts cache pod config
+  template:
+    src: templates/k8s/tts_cache.json
+    dest: /etc/tts_cache.json
+
+- name: compile tts cache  service config
+  template:
+    src: templates/k8s/tts_cache-service.json
+    dest: /etc/tts_service.json
+
+- name: compile wn pod config
+  template:
+    src: templates/k8s/wn.json
+    dest: /etc/wn.json
+
+- name: compile cvmfs pod config
+  template:
+    src: templates/k8s/cvmfs.json
+    dest: /etc/cvmfs.json   
+
 - name: create squid pod
-  command: kubectl apply -f {{ lookup('template', 'templates/k8s/squid.json') }}
+  command: cat /etc/squid.json | kubectl apply -f -
 
 - name: create squid service
-  command: kubectl apply -f {{ lookup('template', 'templates/k8s/squid-service.json') }}
+  command: cat /etc/squid-service.json | kubectl apply -f -
+
+- name: wait for cms squid to be up and running
+  wait_for:
+    host: "{{cms_config_mysquid_host}}"
+    port: "{{cms_config_mysquid_port}}"
+    delay: 20
+    timeout: 600
+    connect_timeout: 10
 
 - name: create tts_cache pod
-  command: kubectl apply -f {{ lookup('template', 'templates/k8s/tts_cache.json') }}
+  command: cat /etc/tts_cache.json | kubectl apply -f -
 
 - name: create tts_cache service
-  command: kubectl apply -f {{ lookup('template', 'templates/k8s/tts_cache-service.json') }}
+  command: cat /etc/tts_cache-service.json | kubectl apply -f -
+
+- name: wait for cms proxy cache service to be up and running
+  wait_for:
+    host: "{{cms_config_proxycache_host}}"
+    port: "{{cms_config_proxycache_serviceport}}"
+    delay: 20
+    timeout: 600
+    connect_timeout: 10
 
 - name: create wn pod
-  command: kubectl apply -f {{ lookup('template', 'templates/k8s/wn.json') }}
+  command: cat /etc/wn.json | kubectl apply -f -
 
 - name: create cvmfs pod
-  command: kubectl apply -f {{ lookup('template', 'templates/k8s/cvmfs.json') }}
+  command: cat /etc/cvmfs.json | kubectl apply -f -
