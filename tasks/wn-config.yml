@@ -90,13 +90,10 @@
   delay: 10
   tags: cms_config
 
-- name: remove locate cronjob
-  command: chmod -x /etc/cron.daily/mlocate
-  register: result
-  until: result | success
-  retries: 10
-  delay: 10
-  tags: cms_config
+- name: Remove locate cronjob
+  file:
+    path: /etc/cron.daily/mlocate
+    state: absent
 
 - name: mount CVMFS singularity
   command: mount -t cvmfs singularity.opensciencegrid.org /cvmfs/singularity.opensciencegrid.org
