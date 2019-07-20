@@ -11,6 +11,7 @@
   wait_for: 
     timeout: 300
   delegate_to: localhost
+  when: (cms_config_node is undefined) and ((cms_orchestrator == "k8s") or (cms_orchestrator == "kubernetes"))
 
 - include: start-cms-apps-k8s.yml
   when: (cms_config_node is undefined) and ((cms_orchestrator == "k8s") or (cms_orchestrator == "kubernetes"))
