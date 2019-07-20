@@ -94,7 +94,7 @@
               "resources": { 
                 "limits": {
                   "memory": "1500Mi",
-                  "cpu": "2"
+                  "cpu": "1.5"
                 },
                 "requests": { 
                   "memory": "1048Mi",
