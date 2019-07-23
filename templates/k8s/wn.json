@@ -94,11 +94,11 @@
               "resources": { 
                 "limits": {
                   "memory": "1500Mi",
-                  "cpu": "1.5"
+                  "cpu": "2.5"
                 },
                 "requests": { 
                   "memory": "1048Mi",
-                  "cpu": "1"
+                  "cpu": "2"
                 }
               }
             }

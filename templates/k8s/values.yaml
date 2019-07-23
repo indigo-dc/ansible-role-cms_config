@@ -1,0 +1,66 @@
+# Default values for dodas_cms.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+squid:
+  repository: spiga/frontiersquidv1
+  tag: latest
+  pullPolicy: Always
+  containerPort: 3128
+  replicas: 1
+  servicePort: 3128
+  serviceIP: 192.168.1.13
+
+tts_cache:
+  repository: dodasts/ttscache
+  tag: latest
+  pullPolicy: Always
+  containerPort: 80
+  replicas: 1
+  servicePort: 8080 
+  serviceIP: 192.168.1.13
+  iam_token: DUMMY
+  iam_client: DUMMY
+  iam_client_secret: DUMMY
+  iam_endpoint: https://dodas-iam.cloud.cnaf.infn.it/
+  tts_audience: https://dodas-tts.cloud.cnaf.infn.it
+  tts_proxy: https://dodas-tts.cloud.cnaf.infn.it
+  tts_endpoint: https://dodas-tts.cloud.cnaf.infn.it/api/v2/iam/credential
+  cache_expiration: 864000
+  lock_file_age: 20
+  cache_dir: /tmp
+
+
+cvmfs:
+  replicas: 1
+  repository: cloudpg/cvmfs
+  tag: latest
+  pullPolicy: Always
+
+wn:
+  replicas: 1
+  repository: dodasts/cms
+  tag: latest
+  pullPolicy: Always
+  cms_local_site: T3_IT_Opportunistic_xcache
+
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

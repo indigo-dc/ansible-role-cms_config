@@ -1,4 +1,12 @@
 ---
+### waiting for helm updated version
+#- name: get /etc/values.yaml
+#  template:
+#    src: templates/k8s/values.yaml
+#    dest: /etc/values.yaml 
+#
+#- name: create tts_cache pod
+#  command: helm repo add ms https://dodas-ts.github.io/docker-img_cms/ && helm update && helm install -f /etc/values.yaml cms/
 
 - name: compile squid pod config
   template:
