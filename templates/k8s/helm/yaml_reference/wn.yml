@@ -41,6 +41,8 @@ spec:
           value: "2"
         - name: XrdSecGSISRVNAMES
           value: "*"
+        - name: DETECTED_CORES
+          value: "1"
         volumeMounts:
         - mountPath: /opt/exp_sw/cms
           name: exp-sw
@@ -50,7 +52,14 @@ spec:
           name: siteconf
         - mountPath: /sys/fs/cgroup 
           name: cgroup
-        image: dodasts/cms 
+        image: dodasts/cms
+        resources: 
+          limits:
+            memory: "1500Mi"
+            cpu: "2500m"
+          requests:
+            memory: "1048Mi"
+            cpu: "2000m"
       volumes:
       - name: exp-sw
         hostPath:

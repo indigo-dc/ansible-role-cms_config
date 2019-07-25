@@ -70,6 +70,10 @@
                 {
                   "name": "XrdSecGSISRVNAMES",
                   "value": "*"
+                },
+                {
+                  "name": "DETECTED_CORES",
+                  "value": 1
                 }
               ],
               "volumeMounts": [
