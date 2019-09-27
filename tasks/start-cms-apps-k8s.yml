@@ -38,11 +38,11 @@
     src: templates/k8s/cvmfs.json
     dest: /etc/cvmfs.json   
 
-- name: create squid pod
-  command: kubectl apply -f /etc/squid.json
-
 - name: create squid service
   command: kubectl apply -f /etc/squid-service.json
+
+- name: create squid pod
+  command: kubectl apply -f /etc/squid.json
 
 - name: wait for cms squid to be up and running
   wait_for:
@@ -52,11 +52,11 @@
     timeout: 600
     connect_timeout: 10
 
-- name: create tts_cache pod
-  command: kubectl apply -f /etc/tts_cache.json
-
 - name: create tts_cache service
   command: kubectl apply -f /etc/tts_cache-service.json
+
+- name: create tts_cache pod
+  command: kubectl apply -f /etc/tts_cache.json
 
 - name: wait for cms proxy cache service to be up and running
   wait_for:
