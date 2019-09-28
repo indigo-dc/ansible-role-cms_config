@@ -35,6 +35,7 @@
               ]
             }
           },
+          "dnsPolicy": "ClusterFirst",
           "containers": [
             {
               "name": "squid",

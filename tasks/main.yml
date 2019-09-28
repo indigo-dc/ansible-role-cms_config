@@ -7,10 +7,13 @@
 - include: oneclient.yml
   when: (cms_config_node is undefined) and (cms_input_protocol is defined) and (cms_input_protocol == "onedata") and ((cms_orchestrator is undefined) or (cms_orchestrator == "marathon"))
 
-- name: sleep for 300 seconds and continue with play
-  wait_for: 
-    timeout: 300
-  delegate_to: localhost
+- name: Wait for nodes to be ready
+  shell: "/usr/bin/kubectl get nodes"
+  register: nodes
+  until:      
+    - '" Ready "  in nodes.stdout'      
+  retries: 6
+  delay: 20
   when: (cms_config_node is undefined) and ((cms_orchestrator == "k8s") or (cms_orchestrator == "kubernetes"))
 
 - include: start-cms-apps-k8s.yml
