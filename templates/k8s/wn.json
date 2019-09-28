@@ -77,7 +77,7 @@
                 },
                 {
                   "name": "DETECTED_CORES",
-                  "value": 1
+                  "value": "1"
                 }
               ],
               "volumeMounts": [
