@@ -41,6 +41,14 @@
 - name: create squid service
   command: kubectl apply -f /etc/squid-service.json
 
+#- name: Define variable in task.
+#  shell: echo "http://www.my.url.com"
+#  register: url
+
+#- name: Download apache
+#  shell: wget {{ item }}
+#  with_items: url.stdout
+
 - name: create squid pod
   command: kubectl apply -f /etc/squid.json
 

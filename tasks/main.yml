@@ -11,9 +11,9 @@
   shell: "/usr/bin/kubectl get nodes"
   register: nodes
   until:      
-    - '"NAME"  in nodes.stdout'      
+    - '"Ready"  in nodes.stdout'      
   retries: 6
-  delay: 20
+  delay: 70
   when: (cms_config_node is undefined) and ((cms_orchestrator == "k8s") or (cms_orchestrator == "kubernetes"))
 
 - include: start-cms-apps-k8s.yml
